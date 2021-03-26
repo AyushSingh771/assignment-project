@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import "./Login.css";
-import { Route, Link, Redirect, BrowserRouter } from 'react-router-dom';
-import Signup from '../Signup/Signup';
+import { Route, Link, Redirect, BrowserRouter } from "react-router-dom";
+import Signup from "../Signup/Signup";
 import UserDetails from "../UserDetails";
-
-
-
 
 class Login extends Component {
   state = {
@@ -13,18 +10,19 @@ class Login extends Component {
     password: "",
     emailError: "",
     passwordError: "",
-     loggedIn: false
+    loggedIn: "false",
+    isSubmit: false,
   };
-   redirect = null;
- data = {
-   user: []
- }
-  componentDidMount () {
-        UserDetails().then((res) =>{
-          this.data.user  = res;
-          console.log(this.data.user)
-        });
-    }
+  redirect = null;
+  data = {
+    user: [],
+  };
+  componentDidMount() {
+    UserDetails().then((res) => {
+      this.data.user = res;
+      console.log(this.data.user);
+    });
+  }
 
   isValid() {
     let emailDiscription = "Please enter correct email";
@@ -69,93 +67,81 @@ class Login extends Component {
 
     return true;
   }
-  isLoggedIn(){
-//     <BrowserRouter>
-// <Redirect to="hello" />
-// </BrowserRouter>
-
-      this.data.user.map((userProfile: any) => {
-        
-                  console.log(userProfile);
-                   if(userProfile.userEmail === this.state.userEmail && userProfile.password === this.state.password) {
-                    this.setState({loggedIn: true});
-                     
-                   
-                     alert("loggedIn successful")
-
-
-                   }
-                   else{
-                    alert("invalid email or password");
-                   }
-                 });
+  isLoggedIn() {
+    this.data.user.map((userProfile: any) => {
+      console.log(userProfile);
+      if (
+        userProfile.userEmail === this.state.userEmail &&
+        userProfile.password === this.state.password
+      ) {
+        this.setState({ loggedIn: "true" });
+      }
+    });
   }
+
   handleSubmit = (event: any) => {
     event.preventDefault();
     this.isLoggedIn();
-    this.setState({ isSubmit: "true"});
+    this.setState({ isSubmit: "true" });
     const valid = this.isValid();
     if (valid) {
       console.log(this.state);
     }
-
   };
   render() {
     let redirect;
-    if(this.state.loggedIn  === true)
-      {
-        redirect = <Redirect to="/posts" />
-      }
-       
-    
-    
+    if (this.state.loggedIn === "true") {
+      alert("loggedIn successful" + this.state.loggedIn);
+      redirect = <Redirect to="/posts" />;
+    } else if (this.state.isSubmit) {
+      alert("loggedIn Insuccessful" + this.state.loggedIn);
+    }
+
     return (
       <div>
         {redirect}
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6">
-            <div className="card">
-              
-              <form onSubmit={this.handleSubmit} className="box">
-                <h1>Login</h1>
-                <p className="text-muted">
-                  {" "}
-                  Please enter your login and password!
-                </p>
-                <input
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                  value={this.state.userEmail}
-                  onChange={(event) =>
-                    this.setState({ userEmail: event.target.value })
-                  }
-                />
-                <div className="inputError">{this.state.emailError}</div>
-                <input
-                  type="password"
-                  name="passwrod"
-                  placeholder="Password"
-                  value={this.state.password}
-                  onChange={(event) =>
-                    this.setState({ password: event.target.value })
-                  }
-                />
-                <div className="inputError">{this.state.passwordError}</div>
-                <a className="forgot text-muted" href="www.google.com">
-                  Forgot password?
-                </a>
-                <input type="submit" name="" value="Login" />
-                <Link to="/signup">Signup</Link>
-              </form>
-              
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="card">
+                <form onSubmit={this.handleSubmit} className="box">
+                  <h1>Login</h1>
+                  <p className="text-muted">
+                    {" "}
+                    Please enter your login and password!
+                  </p>
+                  <input
+                    type="text"
+                    name="email"
+                    placeholder="Email"
+                    value={this.state.userEmail}
+                    onChange={(event) =>
+                      this.setState({ userEmail: event.target.value })
+                    }
+                  />
+                  <div className="inputError">{this.state.emailError}</div>
+                  <input
+                    type="password"
+                    name="passwrod"
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={(event) =>
+                      this.setState({ password: event.target.value })
+                    }
+                  />
+                  <div className="inputError">{this.state.passwordError}</div>
+                  <a className="forgot text-muted" href="www.google.com">
+                    Forgot password?
+                  </a>
+                  <input type="submit" name="" value="Login" />
+                  <Link to="/signup">Signup</Link>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      
-      <Route exact path="/signup" component={Signup}/>
+
+        <Route exact path="/signup" component={Signup} />
       </div>
     );
   }

@@ -15,33 +15,32 @@ class Signup extends Component {
     loggedIn: "false",
     confirmPassword: "",
     confirmPasswordError: "",
-    emailAlreadyExist: false
+    emailAlreadyExist: false,
   };
 
-data ={
-  user: []
- }
-   componentDidUpdate () {
-    UserDetails().then((res) =>{
-      this.data.user  = res;
-      console.log(this.data.user)
+  data = {
+    user: [],
+  };
+  componentDidUpdate() {
+    UserDetails().then((res) => {
+      this.data.user = res;
+      console.log(this.data.user);
     });
-   }
- 
+  }
+
   postDataHandler = () => {
     const userData = {
-        id:"",
-        userName: this.state.userName,
-        userEmail: this.state.userEmail,
-        password: this.state.password,
-        contactNumber: this.state.phoneNumber,
-        Dob: ""
+      id: "",
+      userName: this.state.userName,
+      userEmail: this.state.userEmail,
+      password: this.state.password,
+      contactNumber: this.state.phoneNumber,
+      Dob: "",
     };
-    axios.post('http://localhost:8000/profile', userData)
-        .then(response => {
-            console.log(response);
-        });
-}
+    axios.post("http://localhost:8000/profile", userData).then((response) => {
+      console.log(response);
+    });
+  };
 
   isValid() {
     let emailDiscription = "Please enter correct email";
@@ -82,7 +81,7 @@ data ={
       this.setState({
         passwordError: passwordDiscription,
         userNameError: userNameDiscription,
-        emailError: ""
+        emailError: "",
       });
       // alert(this.state.passwordError + "dddddddddd");
       return false;
@@ -91,7 +90,7 @@ data ={
       this.setState({
         emailError: emailDiscription,
         userNameError: userNameDiscription,
-        passwordError:""
+        passwordError: "",
       });
       // alert(this.state.passwordError + "dddddddddd");
       return false;
@@ -100,16 +99,19 @@ data ={
       this.setState({
         emailError: emailDiscription,
         passwordError: passwordDiscription,
-        userNameError: ""
+        userNameError: "",
       });
       // alert(this.state.passwordError + "dddddddddd");
       return false;
     }
     // *********** logic for password validation ***********
     if (!testPassword) {
-      this.setState({ passwordError: passwordDiscription,emailError: "",
-      userNameError: "" });
-      
+      this.setState({
+        passwordError: passwordDiscription,
+        emailError: "",
+        userNameError: "",
+      });
+
       return false;
     } else {
       this.setState({ passwordError: "" });
@@ -118,14 +120,22 @@ data ={
     // *********** logic for email validation ***********
 
     if (!testEmail) {
-      this.setState({ emailError: emailDiscription,  passwordError:"", userNameError: ""});
+      this.setState({
+        emailError: emailDiscription,
+        passwordError: "",
+        userNameError: "",
+      });
       return false;
     } else {
       this.setState({ emailError: "" });
     }
 
     if (invalidUsername) {
-      this.setState({ userNameError: userNameDiscription, emailError: "",  passwordError:"" });
+      this.setState({
+        userNameError: userNameDiscription,
+        emailError: "",
+        passwordError: "",
+      });
       return false;
     } else {
       this.setState({ userNameError: "" });
@@ -133,38 +143,34 @@ data ={
 
     return true;
   }
- 
-    handleSubmit = (event: any) => {
+
+  handleSubmit = (event: any) => {
     event.preventDefault();
-     
-    
-    var passwordMatch = false
+
+    var passwordMatch = false;
     const valid = this.isValid();
-    alert(this.state.password)
-    if( this.state.password === this.state.confirmPassword){
-     passwordMatch = true;
-     this.setState({confirmPasswordError: ""})
-    //  this.postDataHandler();
+    // alert(this.state.password)
+    if (this.state.password === this.state.confirmPassword) {
+      passwordMatch = true;
+      this.setState({ confirmPasswordError: "" });
+      //  this.postDataHandler();
+    } else {
+      this.setState({
+        confirmPasswordError: "does not match with confirm password",
+      });
     }
-    else{
-      this.setState({confirmPasswordError: "does not match with confirm password"});
-    }
-    
 
     this.data.user.map((userProfile: any) => {
       console.log(userProfile);
-       if(userProfile.userEmail ===  this.state.userEmail){
-         this.state.emailAlreadyExist = true;
-    }
- 
-  })
-  if(valid && passwordMatch && this.state.emailAlreadyExist){
+      if (userProfile.userEmail === this.state.userEmail) {
+        this.state.emailAlreadyExist = true;
+      }
+    });
+    if (valid && passwordMatch && this.state.emailAlreadyExist) {
       alert("email already exist");
-    }
-    else if(valid && passwordMatch && !this.state.emailAlreadyExist){
+    } else if (valid && passwordMatch && !this.state.emailAlreadyExist) {
       this.postDataHandler();
     }
-
   };
   render() {
     return (
@@ -186,25 +192,28 @@ data ={
                       onChange={(event) =>
                         this.setState({ userName: event.target.value })
                       }
-                      
                     />
-                    <label htmlFor="Username" className="text-muted">Username</label>
+                    <label htmlFor="Username" className="text-muted">
+                      Username
+                    </label>
                     <div className="inputError">{this.state.userNameError}</div>
                   </div>
 
                   <div className="form-label-group">
-                  <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  placeholder="Email"
-                  className="form-control"
-                  value={this.state.userEmail}
-                  onChange={(event) =>
-                    this.setState({ userEmail: event.target.value })
-                  }
-                />
-                     <label htmlFor="email" className="text-muted">email</label>
+                    <input
+                      type="text"
+                      name="email"
+                      id="email"
+                      placeholder="Email"
+                      className="form-control"
+                      value={this.state.userEmail}
+                      onChange={(event) =>
+                        this.setState({ userEmail: event.target.value })
+                      }
+                    />
+                    <label htmlFor="email" className="text-muted">
+                      email
+                    </label>
                     <div className="inputError">{this.state.emailError}</div>
                   </div>
 
@@ -218,9 +227,10 @@ data ={
                       onChange={(event) =>
                         this.setState({ phoneNumber: event.target.value })
                       }
-                      
                     />
-                    <label htmlFor="inputPhoneNumber" className="text-muted">PhoneNumber</label>
+                    <label htmlFor="inputPhoneNumber" className="text-muted">
+                      PhoneNumber
+                    </label>
                   </div>
                   <hr />
 
@@ -235,8 +245,10 @@ data ={
                         this.setState({ password: event.target.value })
                       }
                     />
-                      <label htmlFor="password" className="text-muted">password</label>
-                     <div className="inputError">{this.state.passwordError}</div>
+                    <label htmlFor="password" className="text-muted">
+                      password
+                    </label>
+                    <div className="inputError">{this.state.passwordError}</div>
                   </div>
 
                   <div className="form-label-group">
@@ -249,14 +261,22 @@ data ={
                       onChange={(event) =>
                         this.setState({ confirmPassword: event.target.value })
                       }
-                      
                     />
-                        <label htmlFor="ConfirmPassword" className="text-muted">ConfirmPassword</label>
-                     <div className="inputError">{this.state.confirmPasswordError}</div>
+                    <label htmlFor="ConfirmPassword" className="text-muted">
+                      ConfirmPassword
+                    </label>
+                    <div className="inputError">
+                      {this.state.confirmPasswordError}
+                    </div>
                   </div>
                   {/* <input type="submit" name="" value="Login" /> */}
-                  <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit"> Register </button>
-                  
+                  <button
+                    className="btn btn-lg btn-primary btn-block text-uppercase"
+                    type="submit"
+                  >
+                    {" "}
+                    Register{" "}
+                  </button>
                 </form>
               </div>
             </div>

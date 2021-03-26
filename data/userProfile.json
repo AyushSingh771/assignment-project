@@ -1,1 +1,20 @@
-
+{
+  "profile": [
+    {
+      "id": 1,
+      "userName": "ayush",
+      "userEmail": "ayush@gmail.com",
+      "password": "Ayush@1996",
+      "contactNumber": "9140561079",
+      "Dob": ""
+    },
+    {
+      "id": 2,
+      "userName": "ayush",
+      "userEmail": "ayush@gmail.com",
+      "password": "Ayush@1996",
+      "contactNumber": "9140561079",
+      "Dob": ""
+    }
+  ]
+}
