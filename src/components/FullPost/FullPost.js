@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import "./FullPost.css";
-// klklklklklklkooooooooooooo
+//llllllllllllllllllllllllll
 class FullPost extends Component {
   state = {
     loadedPost: null,
