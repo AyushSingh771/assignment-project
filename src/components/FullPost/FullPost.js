@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import "./FullPost.css";
-
+// klklklklklklkooooooooooooo
 class FullPost extends Component {
   state = {
     loadedPost: null,
@@ -10,7 +10,6 @@ class FullPost extends Component {
 
   componentDidMount() {
     if (this.props.match.params.id) {
-      // alert("ffffff")
       if (
         !this.state.loadedPost ||
         (this.state.loadedPost &&
@@ -36,11 +35,11 @@ class FullPost extends Component {
     }
     if (this.state.loadedPost) {
       post = (
-        <div className="FullPost">
+        <div className='FullPost'>
           <h1>{this.state.loadedPost.title}</h1>
           <p>{this.state.loadedPost.content}</p>
-          <div className="Edit">
-            <button className="Delete">Delete</button>
+          <div className='Edit'>
+            <button className='Delete'>Delete</button>
           </div>
         </div>
       );
