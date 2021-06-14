@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import axios from "axios";
 import "./Login.css";
 import { Route, Link, Redirect, BrowserRouter } from "react-router-dom";
 import Signup from "../Signup/Signup";
 import UserDetails from "../UserDetails";
-
+// jkjkjkjkjkjkjkjkjllllllllllllllll
 class Login extends Component {
   state = {
     userEmail: "",
@@ -24,7 +24,7 @@ class Login extends Component {
       console.log(this.data.user);
     });
   }
-
+  //ayushTest123
   isValid() {
     let emailDiscription = "Please enter correct email";
     var email = this.state.userEmail;
@@ -81,12 +81,11 @@ class Login extends Component {
   }
 
   handleSubmit = (event: any) => {
-
-  //   axios.post('/auth/v1' ).send({"username": this.state.userEmail, "password": this.state.password}).end((err: any,res: any) => {if(err){
-  //     alert(err);
-  //     return;
-  //   }
-  // console.log(res)});
+    //   axios.post('/auth/v1' ).send({"username": this.state.userEmail, "password": this.state.password}).end((err: any,res: any) => {if(err){
+    //     alert(err);
+    //     return;
+    //   }
+    // console.log(res)});
     event.preventDefault();
     this.isLoggedIn();
     this.setState({ isSubmit: "true" });
@@ -99,7 +98,7 @@ class Login extends Component {
     let redirect;
     if (this.state.loggedIn === "true") {
       alert("loggedIn successful" + this.state.loggedIn);
-      redirect = <Redirect to="/posts" />;
+      redirect = <Redirect to='/posts' />;
     } else if (this.state.isSubmit) {
       alert("loggedIn Insuccessful" + this.state.loggedIn);
     }
@@ -107,48 +106,48 @@ class Login extends Component {
     return (
       <div>
         {redirect}
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6">
-              <div className="card">
-                <form onSubmit={this.handleSubmit} className="box">
+        <div className='container'>
+          <div className='row'>
+            <div className='col-md-6'>
+              <div className='card'>
+                <form onSubmit={this.handleSubmit} className='box'>
                   <h1>Login</h1>
-                  <p className="text-muted">
+                  <p className='text-muted'>
                     {" "}
                     Please enter your login and password!
                   </p>
                   <input
-                    type="text"
-                    name="email"
-                    placeholder="Email"
+                    type='text'
+                    name='email'
+                    placeholder='Email'
                     value={this.state.userEmail}
                     onChange={(event) =>
                       this.setState({ userEmail: event.target.value })
                     }
                   />
-                  <div className="inputError">{this.state.emailError}</div>
+                  <div className='inputError'>{this.state.emailError}</div>
                   <input
-                    type="password"
-                    name="passwrod"
-                    placeholder="Password"
+                    type='password'
+                    name='passwrod'
+                    placeholder='Password'
                     value={this.state.password}
                     onChange={(event) =>
                       this.setState({ password: event.target.value })
                     }
                   />
-                  <div className="inputError">{this.state.passwordError}</div>
-                  <a className="forgot text-muted" href="www.google.com">
+                  <div className='inputError'>{this.state.passwordError}</div>
+                  <a className='forgot text-muted' href='www.google.com'>
                     Forgot password?
                   </a>
-                  <input type="submit" name="" value="Login" />
-                  <Link to="/signup">Signup</Link>
+                  <input type='submit' name='' value='Login' />
+                  <Link to='/signup'>Signup</Link>
                 </form>
               </div>
             </div>
           </div>
         </div>
 
-        <Route exact path="/signup" component={Signup} />
+        <Route exact path='/signup' component={Signup} />
       </div>
     );
   }
