@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import "./Login.css";
 import { Route, Link, Redirect, BrowserRouter } from "react-router-dom";
 import Signup from "../Signup/Signup";
@@ -80,6 +81,12 @@ class Login extends Component {
   }
 
   handleSubmit = (event: any) => {
+
+  //   axios.post('/auth/v1' ).send({"username": this.state.userEmail, "password": this.state.password}).end((err: any,res: any) => {if(err){
+  //     alert(err);
+  //     return;
+  //   }
+  // console.log(res)});
     event.preventDefault();
     this.isLoggedIn();
     this.setState({ isSubmit: "true" });
